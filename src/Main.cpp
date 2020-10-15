@@ -94,6 +94,7 @@ Bigint LoadProfile() {
 	endnum = Bigint("100000000000000000000000");
 	ifstream tempfile("temp.txt", ios::in|ios::ate);
 	if (!tempfile.is_open()) {
+		loadflag = true;
 		return Bigint(11);
 	}
 	tempfile.seekg(-1, ios::cur);
