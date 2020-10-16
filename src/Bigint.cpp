@@ -1,5 +1,7 @@
 #include "Bigint.h"
 
+#include <iostream>
+
 using namespace std;
 
 Eleint* Bigint::GetElement(unsigned int n) const {
@@ -106,7 +108,7 @@ string Bigint::toStringD() const {
 string Bigint::toString() const {
 	Bigint t(0);
 	for (int i = this->elenum - 1; i >= 0; i--) {
-		for (int j = (i < (int)this->elenum - 1 ? 32 : this->MaxBitNum() & 0x1F); j > 0; j--) {
+		for (int j = (i < (int)this->elenum - 1 ? 32 - 1 : (this->MaxBitNum() - 1) & 0x1F); j >= 0; j--) {
 			for (int k = t.elenum - 1; k >= 0; k--) {
 				unsigned int u = t.GetNum(k);
 				unsigned int v = 0;
@@ -121,9 +123,7 @@ string Bigint::toString() const {
 				t.SetNum(k, v);
 			}
 			t <<= 1;
-			if (this->GetNum(i) >> (j - 1) & 0x1) {
-				t += 1;
-			}
+			t |= (this->GetNum(i) >> j) & 0x1;
 		}
 	}
 	string result = "";
@@ -442,6 +442,10 @@ void Bigint::operator %= (const Bigint& num) {
 			s >>= 1;
 		}
 	}
+}
+
+void Bigint::operator |= (unsigned int num) {
+	this->topint->SetNum(this->topint->GetNum() | num);
 }
 
 bool Bigint::operator >= (const Bigint& b) const {

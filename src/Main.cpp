@@ -91,7 +91,7 @@ void LogPrime(const Bigint& p) {
 
 Bigint LoadProfile() {
 	start = clock();
-	endnum = Bigint("100000000000000000000000");
+	endnum = Bigint(END_NUM);
 	ifstream tempfile("temp.txt", ios::in|ios::ate);
 	if (!tempfile.is_open()) {
 		loadflag = true;

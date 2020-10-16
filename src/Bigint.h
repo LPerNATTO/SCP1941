@@ -70,6 +70,8 @@ public:
 	void operator %= (unsigned int num);
 	void operator %= (const Bigint& num);
 
+	inline void operator |= (unsigned int num);
+
 	inline Eleint* operator [] (unsigned int n) const {
 		return GetElement(n);
 	}
